@@ -47,6 +47,9 @@
     <!-- Generate script button -->
     <button id="generate-script">Generate Script</button>
 
+    <!-- Copy HTML button -->
+    <button id="copy-html">Copy HTML</button>
+
     <!-- Generated script output -->
     <pre id="script-output"></pre>
 
@@ -108,11 +111,27 @@
             </script>
             `;
 
+            // Display the generated script in the <pre> element
             document.getElementById("script-output").textContent = script;
         }
 
         // Event listener for the "Generate Script" button
         document.getElementById("generate-script").addEventListener("click", generateScript);
+
+        // Function to copy HTML code to clipboard
+        function copyHtmlToClipboard() {
+            const scriptOutput = document.getElementById("script-output");
+            const textArea = document.createElement("textarea");
+            textArea.value = scriptOutput.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+            alert("HTML code copied to clipboard!");
+        }
+
+        // Event listener for the "Copy HTML" button
+        document.getElementById("copy-html").addEventListener("click", copyHtmlToClipboard);
     </script>
 </body>
 </html>
