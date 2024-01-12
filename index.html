@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot Appearance Customizer</title>
+    <style>
+        /* Add your CSS styles here */
+        /* Example CSS for the chat window */
+        .chat-window {
+            background-color: #FFFFFF;
+            width: 400px;
+            height: 700px;
+            border: 1px solid #ccc;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chatbot Appearance Customizer</h1>
+
+    <!-- Input fields -->
+    <label for="chatflow-id">Chatflow ID:</label>
+    <input type="text" id="chatflow-id" value="40dfbdcb-88cd-4559-aac0-192f302f5811"><br>
+
+    <label for="welcome-message">Welcome Message:</label>
+    <input type="text" id="welcome-message" value="Hello! How can I help you today?"><br>
+
+    <label for="custom-icon-url">Custom Icon URL:</label>
+    <input type="text" id="custom-icon-url" value="https://example.com/custom-icon.png"><br>
+
+    <!-- Color pickers -->
+    <label for="button-bg-color">Button Background Color:</label>
+    <input type="color" id="button-bg-color" value="#3B81F6"><br>
+
+    <!-- Chat window -->
+    <div class="chat-window" id="chat-window"></div>
+
+    <!-- Sliders -->
+    <label for="font-size">Font Size:</label>
+    <input type="range" id="font-size" min="10" max="30" value="16"><br>
+
+    <label for="chat-height">Chat Window Height:</label>
+    <input type="range" id="chat-height" min="300" max="1000" value="700"><br>
+
+    <label for="chat-width">Chat Window Width:</label>
+    <input type="range" id="chat-width" min="200" max="800" value="400"><br>
+
+    <!-- Generate script button -->
+    <button id="generate-script">Generate Script</button>
+
+    <!-- Generated script output -->
+    <pre id="script-output"></pre>
+
+    <script>
+        // Function to generate the script based on user inputs
+        function generateScript() {
+            const chatflowId = document.getElementById("chatflow-id").value;
+            const welcomeMessage = document.getElementById("welcome-message").value;
+            const customIconUrl = document.getElementById("custom-icon-url").value;
+            const buttonBgColor = document.getElementById("button-bg-color").value;
+            const fontSize = document.getElementById("font-size").value;
+            const chatHeight = document.getElementById("chat-height").value;
+            const chatWidth = document.getElementById("chat-width").value;
+
+            const script = `
+            <script type="module">
+                import Chatbot from "https://cdn.jsdelivr.net/gh/Austen-gflops/GFLOPS-Bot@latest/dist/web.js"
+                Chatbot.init({
+                    chatflowid: "${chatflowId}",
+                    apiHost: "https://gflops.onrender.com",
+                    chatflowConfig: {
+                        // topK: 2
+                    },
+                    theme: {
+                        button: {
+                            backgroundColor: "${buttonBgColor}",
+                            right: 20,
+                            bottom: 20,
+                            size: "medium",
+                            iconColor: "#FFFFFF",
+                            customIconSrc: "${customIconUrl}",
+                        },
+                        chatWindow: {
+                            welcomeMessage: "${welcomeMessage}",
+                            backgroundColor: "#FFFFFF",
+                            height: ${chatHeight},
+                            width: ${chatWidth},
+                            fontSize: ${fontSize},
+                            poweredByTextColor: "#303235",
+                            botMessage: {
+                                backgroundColor: "#F7F8FF",
+                                textColor: "#303235",
+                                showAvatar: false,
+                            },
+                            userMessage: {
+                                backgroundColor: "#3B81F6",
+                                textColor: "#FFFFFF",
+                                showAvatar: false,
+                            },
+                            textInput: {
+                                placeholder: "Type your question",
+                                backgroundColor: "#FFFFFF",
+                                textColor: "#303235",
+                                sendButtonColor: "${buttonBgColor}",
+                            }
+                        }
+                    }
+                })
+            </script>
+            `;
+
+            document.getElementById("script-output").textContent = script;
+        }
+
+        // Event listener for the "Generate Script" button
+        document.getElementById("generate-script").addEventListener("click", generateScript);
+    </script>
+</body>
+</html>
